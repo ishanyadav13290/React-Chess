@@ -1,0 +1,30 @@
+.board{
+    width: fit-content;
+    margin: auto;
+    display: grid;
+    grid-template-columns: calc(.25*var(--tile-size)) calc(8*var(--tile-size))
+}
+
+.tiles{
+    display: grid;
+    grid-template-columns: repeat(8,var(--tile-size));
+    grid-template-rows: repeat(8,var(--tile-size));
+    width: calc(8*var(--tile-size));
+    
+}
+
+.tileLight{
+    background: var(--light-tile);
+}
+
+.tileDark{
+    background: var(--dark-tile);
+}
+
+.coordinate{
+    visibility: hidden;
+}
+.tile:hover .coordinate{
+    visibility: initial;
+    background: none;
+}

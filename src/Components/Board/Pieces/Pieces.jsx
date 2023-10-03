@@ -20,14 +20,14 @@ const Pieces = () => {
 
     function drop(e){
         e.preventDefault()
-        const newPosition = copyPosititon(state)
+        const newPosition = copyPosititon(state) //to store the newly changed positions in the array
         const {x,y} = calculateCoords(e)
-        const [p,rank,file] = e.dataTransfer.getData('text').split(',')
+        const [p,rank,file] = e.dataTransfer.getData('text').split(',') //splitting into array to capture values
 
         newPosition[rank][file]=""
-        newPosition[x][y]=p
+        newPosition[x][y]=p //filling the new piece in the new area
         
-        setState(newPosition)
+        setState(newPosition) //setting position array to newly changes array to display changes
     }
     function dragOver(e){
         e.preventDefault()

@@ -1,5 +1,5 @@
 export const createPosition = () => {
-
+//function to give positions
     // array of 8*8 for grid system
     const position = new Array(8).fill("").map(x=>new Array(8).fill(''))
     position[0][0] = 'whiteRook'
@@ -30,11 +30,13 @@ export const createPosition = () => {
 }
 
 export const copyPosititon = position =>{
+    //create a blank newPosition Matrix
     const newPosition = new Array(8).fill('').map(x=> new Array(8).fill(''))
 
     for(let rank =0; rank<8;rank++){
         for(let file=0;file<8;file++){
             newPosition[rank][file] = position[rank][file]
+            //fills newPosition matrix array to the newly changed array passed froms props
         }
     }
     return newPosition

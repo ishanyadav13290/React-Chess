@@ -1,38 +1,43 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import "./Pieces.css"
 import Piece from './Piece'
+import { copyPosititon, createPosition } from '../../../Helper/helper'
 
 const Pieces = () => {
     // array of 8*8 for grid system
-    const position = new Array(8).fill("").map(x=>new Array(8).fill(''))
-    position[0][0] = 'whiteRook'
-    position[0][1] = 'whiteHorse'
-    position[0][2] = 'whiteBishop'
-    position[0][3] = 'whiteQueen'
-    position[0][4] = 'whiteKing'
-    position[0][5] = 'whiteBishop'
-    position[0][6] = 'whiteHorse'
-    position[0][7] = 'whiteRook'
-
-    position[7][0] = 'blackRook'
-    position[7][1] = 'blackHorse'
-    position[7][2] = 'blackBishop'
-    position[7][3] = 'blackQueen'
-    position[7][4] = 'blackKing'
-    position[7][5] = 'blackBishop'
-    position[7][6] = 'blackHorse'
-    position[7][7] = 'blackRook'
-    for (let i = 0; i < 8; i++) {
-        position[1][i] = "whitePawn";
-        position[6][i] = "blackPawn"
-    }
+    const [state,setState] = useState(createPosition())
+    const ref = useRef()
+   
     
+    const calculateCoords = e => {
+        const {top,left,width} = ref.current.getBoundingClientRect()
+        const size = width / 8
+        const y = Math.floor((e.clientX - left) / size) 
+        const x = 7 - Math.floor((e.clientY - top) / size)
+
+        return {x,y}
+    }
+
+    function drop(e){
+        e.preventDefault()
+        const newPosition = copyPosititon(state)
+        const {x,y} = calculateCoords(e)
+        const [p,rank,file] = e.dataTransfer.getData('text').split(',')
+
+        newPosition[rank][file]=""
+        newPosition[x][y]=p
+        
+        setState(newPosition)
+    }
+    function dragOver(e){
+        e.preventDefault()
+    }
 
   return (
-    <div className='pieces'>
-{position.map((r,rank)=>{
+    <div ref={ref} className='pieces' onDrop={drop} onDragOver={dragOver}>
+{state.map((r,rank)=>{
     return r.map((f,file)=>{
-        return position[rank][file]?<Piece key={rank+'-'+file} rank={rank} file={file} piece={position[rank][file]} />:null
+        return state[rank][file]?<Piece key={rank+'-'+file} rank={rank} file={file} piece={state[rank][file]} />:null
     })
 })}
     </div>

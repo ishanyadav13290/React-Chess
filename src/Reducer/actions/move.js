@@ -6,3 +6,14 @@ export const makeNewMove =({newPosition})=>{
         payload:{newPosition}
     }
 }
+export const generateCandidateMoves =({candidateMoves})=>{
+    return {
+        type : actionTypes.generateCandidateMoves,
+        payload:{candidateMoves}
+    }
+}
+export const clearCandidates =()=>{
+    return {
+        type : actionTypes.clearCandidateMoves,
+    }
+}

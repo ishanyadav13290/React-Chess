@@ -15,18 +15,18 @@
     background-position: center;
 }
 
-.piece.blackKing {background-image: url('../../../Static/imgs/blackKing.png');}
-.piece.blackQueen {background-image: url('../../../Static/imgs/blackQueen.png');}
-.piece.blackRook {background-image: url('../../../Static/imgs/blackRook.png');}
-.piece.blackBishop {background-image: url('../../../Static/imgs/blackBishop.png');}
-.piece.blackHorse {background-image: url('../../../Static/imgs/blackHorse.png');}
-.piece.blackPawn {background-image: url('../../../Static/imgs/blackPawn.png');}
-.piece.whiteKing {background-image: url('../../../Static/imgs/whiteKing.png');}
-.piece.whiteQueen {background-image: url('../../../Static/imgs/whiteQueen.png');}
-.piece.whiteRook {background-image: url('../../../Static/imgs/whiteRook.png');}
-.piece.whiteBishop {background-image: url('../../../Static/imgs/whiteBishop.png');}
-.piece.whiteHorse {background-image: url('../../../Static/imgs/whiteHorse.png');}
-.piece.whitePawn {background-image: url('../../../Static/imgs/whitePawn.png');} 
+.piece.bk {background-image: url('../../Static/imgs/bk.png');}
+.piece.bq {background-image: url('../../Static/imgs/bq.png');}
+.piece.br {background-image: url('../../Static/imgs/br.png');}
+.piece.bb {background-image: url('../../Static/imgs/bb.png');}
+.piece.bn {background-image: url('../../Static/imgs/bn.png');}
+.piece.bp {background-image: url('../../Static/imgs/bp.png');}
+.piece.wk {background-image: url('../../Static/imgs/wk.png');}
+.piece.wq {background-image: url('../../Static/imgs/wq.png');}
+.piece.wr {background-image: url('../../Static/imgs/wr.png');}
+.piece.wb {background-image: url('../../Static/imgs/wb.png');}
+.piece.wn {background-image: url('../../Static/imgs/wn.png');}
+.piece.wp {background-image: url('../../Static/imgs/wp.png');}
 
 .piece.p-07 {transform: translate(0%,0%);}
 .piece.p-17 {transform: translate(100%,0%);}

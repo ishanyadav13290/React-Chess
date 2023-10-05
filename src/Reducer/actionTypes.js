@@ -1,4 +1,6 @@
 const actionTypes ={
-    newMove:"newMove"
+    generateCandidateMoves:"generateCandidateMoves",
+    clearCandidateMoves:"clearCandidateMoves",
+    newMove:"newMove",
 }
 export default actionTypes

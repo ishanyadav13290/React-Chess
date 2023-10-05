@@ -29,3 +29,27 @@
 .tile{
     position: relative;
 }
+
+.highlight:after{
+    content: '';
+    display:block;
+    position: absolute;
+    width: calc(.5*var(--tile-size));
+    height: calc(.5*var(--tile-size));
+    background-color: var(--highlight);
+    border-radius: 50%;
+    left: 25%;
+    top: 25%;
+}
+.attacking:after{
+    content: '';
+    display:block;
+    position: absolute;
+    width: calc(var(--tile-size) - 12px);
+    height: calc(var(--tile-size) - 12px);
+    /* background-color: red; */
+    border-radius: 50%;
+    left: 0;
+    top: 0;
+    border: 6px solid rgb(237, 51, 37);
+}

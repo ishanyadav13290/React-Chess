@@ -116,3 +116,35 @@ export const getKingMoves = ({ position, rank, file }) => {
   });
   return moves;
 };
+export const getPawnCapture = ({ position,piece, rank, file }) => {
+  const moves = [];
+  const  dir = piece === 'wp' ? 1:-1
+
+  
+
+  if(!position?.[rank+dir][file]){ //if empty spot, move forward one
+    moves.push([rank+dir,file])
+  }
+  if(rank%5===1){ //means original position
+    if(position?.[rank+dir]?.[file] ==='' && position?.[rank+dir+dir]?.[file]==='' ){ //if empty spot, move forward one
+        moves.push([rank+dir+dir,file])
+      }
+  }
+  
+  return moves;
+};
+export const getPawnMoves = ({ position,piece, rank, file }) => {
+  const moves = [];
+  const enemy = piece[0]==="w"?"b" : "w";
+  const  dir = piece === 'wp' ? 1:-1
+
+  if(position?.[rank+dir]?.[file-1]&&position?.[rank+dir]?.[file-1].startsWith(enemy)){ //on lef side
+    moves.push([rank+dir,file-1])
+  }
+  if(position?.[rank+dir]?.[file+1]&&position?.[rank+dir]?.[file+1].startsWith(enemy)){// onright side
+    moves.push([rank+dir,file+1])
+  }
+  
+  return moves;
+};
+

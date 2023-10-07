@@ -116,7 +116,7 @@ export const getKingMoves = ({ position, rank, file }) => {
   });
   return moves;
 };
-export const getPawnCapture = ({ position,piece, rank, file }) => {
+export const getPawnCapture = ({ position,prevPosition,piece, rank, file }) => {
   const moves = [];
   const  dir = piece === 'wp' ? 1:-1
 
@@ -130,10 +130,31 @@ export const getPawnCapture = ({ position,piece, rank, file }) => {
         moves.push([rank+dir+dir,file])
       }
   }
+
+  //En-Passant move
+  const enemyPawn = dir === 1 ? 'bp' : 'wp' //if going up, its black pawn else white pawn
+  
+  const adjacentFiles = [file-1,file+1]
+  if(prevPosition){
+    // white in row 5           black on row 3
+    if ((dir === 1 && rank === 4) || (dir === -1 && rank === 3)){
+
+      adjacentFiles.forEach(f => {
+
+        //if pawn has moves from original position to 2 steps ahead
+        if (position?.[rank]?.[f] === enemyPawn && 
+          position?.[rank+dir+dir]?.[f] === '' &&
+          prevPosition?.[rank]?.[f] === '' && 
+          prevPosition?.[rank+dir+dir]?.[f] === enemyPawn){
+              moves.push ([rank+dir,f])
+          }
+      })
+    }
+  }
   
   return moves;
 };
-export const getPawnMoves = ({ position,piece, rank, file }) => {
+export const getPawnMoves = ({ position,prevPosition,piece, rank, file }) => {
   const moves = [];
   const enemy = piece[0]==="w"?"b" : "w";
   const  dir = piece === 'wp' ? 1:-1

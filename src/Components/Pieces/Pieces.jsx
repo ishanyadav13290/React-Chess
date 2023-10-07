@@ -27,8 +27,14 @@ const Pieces = () => {
         const newPosition = copyPosition(currentPosition) //to store the newly changed positions in the array
         const {x,y} = calculateCoords(e)
         const [p,rank,file] = e.dataTransfer.getData('text').split(',') //splitting into array to capture values
-
+        // p=piece
         if(appState.candidateMoves?.find(m=>m[0]===x && m[1]===y)){ //checking if its a valid move or not
+            // for en-passant capturing empty square
+            // if piece is pawn and newPos at x,y is empty and x!== rank & y!==file 
+            if(p.endsWith('p') && !newPosition[x][y] && x!== rank && y!==file){
+                newPosition[rank][y]=''
+            }
+           
             newPosition[Number(rank)][Number(file)]=""
             newPosition[x][y]=p //filling the new piece in the new area
             dispatch(makeNewMove({newPosition})) //setting position array to newly changes array to display changes, also changing turns

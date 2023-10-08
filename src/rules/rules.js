@@ -1,4 +1,5 @@
 import { getBishopMoves, getKingMoves, getKnightMoves, getPawnCapture, getPawnMoves, getQueenMoves, getRookMoves } from "./getMoves"
+import { movePawn, movePiece } from "./move"
 
 const rules ={
 
@@ -20,6 +21,14 @@ const rules ={
         }
 
         return moves
+    },
+
+    performMove: function({position,piece,rank,file,x,y}){
+        if(piece.endsWith('p')){
+           return movePawn({position,piece,rank,file,x,y})
+        }else{
+            return movePiece({position,piece,rank,file,x,y})
+        }
     }
 
 }

@@ -1,3 +1,4 @@
+import { Status } from "./AppConstants"
 import actionTypes from "./actionTypes"
 
 export const reducer = (state,action)=>{
@@ -26,6 +27,20 @@ export const reducer = (state,action)=>{
             return {
                 ...state,
                 candidateMoves:[]
+            }
+        }
+        case actionTypes.promotionOpen:{
+            return {
+                ...state,
+                status:Status.promoting,
+                promotionSquare:{...action.payload}
+            }
+        }
+        case actionTypes.promotionClose:{
+            return {
+                ...state,
+                status:Status.ongoing,
+                promotionSquare:null
             }
         }
         default: return state

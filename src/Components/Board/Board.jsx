@@ -4,6 +4,7 @@ import "./Board.css"
 import { Files, Ranks } from './Coordinates/Coordinates'
 import Pieces from '../Pieces/Pieces'
 import { Context } from '../../Context/Context'
+import Popup from '../Popup/Popup'
 
 const Board = () => {
     const ranks = Array(8).fill().map((x,i)=>8-i)
@@ -54,6 +55,8 @@ const Board = () => {
             )}
         </div>
         <Pieces />
+
+        <Popup />
     <Files files={files} />
     </div>
   )

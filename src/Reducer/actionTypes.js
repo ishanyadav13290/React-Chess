@@ -3,6 +3,7 @@ const actionTypes ={
     clearCandidateMoves:"clearCandidateMoves",
     newMove:"newMove",
     promotionOpen:"promotionOpen",
-    promotionClose:"promotionClose"
+    promotionClose:"promotionClose",
+    canCastle:"canCastle"
 }
 export default actionTypes

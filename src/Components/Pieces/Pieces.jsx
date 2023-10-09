@@ -5,6 +5,8 @@ import { Context } from '../../Context/Context'
 import { clearCandidates, makeNewMove } from '../../Reducer/actions/move'
 import rules from '../../rules/rules'
 import { openPromotion } from '../../Reducer/actions/popup'
+import { getCastleDirections } from '../../rules/getMoves'
+import { updateCastling } from '../../Reducer/actions/game'
 
 const Pieces = () => {
     // array of 8*8 for grid system
@@ -32,6 +34,17 @@ const Pieces = () => {
         }))
     }
 
+    const updateCastlingState =({piece,rank,file})=>{
+
+        
+        const direction = getCastleDirections({
+            castleDirection:appState.castleDirection,
+            piece,rank,file
+        })
+        if(direction){
+            dispatch(updateCastling(direction))
+        }
+    }
     const  move = e =>{
         const {x,y} = calculateCoords(e)
         const [piece,rank,file] = e.dataTransfer.getData('text').split(',') //splitting into array to capture values
@@ -39,7 +52,9 @@ const Pieces = () => {
             if((piece==='wp' && x===7) || (piece==='bp' && x===0)){
                 openPromotionBox({rank,file,x,y})
                 return
-
+            }
+            if(piece.endsWith('r') || piece.endsWith('k')){
+                updateCastlingState({piece,rank,file})
             }
             const newPosition = rules.performMove({
                 position:currentPosition,

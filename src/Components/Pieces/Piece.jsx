@@ -5,7 +5,7 @@ import rules from "../../rules/rules";
 import { generateCandidateMoves } from "../../Reducer/actions/move";
 const Piece = ({ rank, file, piece }) => {
   const { appState, dispatch } = useContext(Context);
-  const { turn, position:currentPosition } = appState;
+  const { turn,castleDirection, position:currentPosition } = appState;
   // const currentPosition = position[position.length - 1];
 
   function dragStart(e) {
@@ -19,6 +19,7 @@ const Piece = ({ rank, file, piece }) => {
       const candidateMoves = rules.getValidMoves({
         position: currentPosition[currentPosition.length-1],
         prevPosition:currentPosition[currentPosition.length-2],
+        castleDirection:castleDirection[turn],
         piece,
         rank,
         file,

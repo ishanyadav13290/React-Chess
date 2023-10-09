@@ -12,11 +12,15 @@
 }
 
 .App {
-  display: grid;
-  place-content: center;
+  /* display: grid; */
+  /* place-content: center; */
+  display: flex;
+  justify-content: center;
   height: 100vh;
+  width: 100vw;
+  overflow: hidden;
   background: var(--bg-color);
-  grid-template-columns: auto 220px;
+  /* grid-template-columns: auto 220px; */
 
 }
 

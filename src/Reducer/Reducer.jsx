@@ -43,6 +43,14 @@ export const reducer = (state,action)=>{
                 promotionSquare:null
             }
         }
+        case actionTypes.canCastle:{
+            let {turn,castleDirection} = state
+            castleDirection[turn] = action.payload
+            return {
+                ...state,
+                castleDirection
+            }
+        }
         default: return state
     }
 }

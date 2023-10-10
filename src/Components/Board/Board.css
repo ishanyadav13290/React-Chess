@@ -47,9 +47,20 @@
     position: absolute;
     width: calc(var(--tile-size) - 12px);
     height: calc(var(--tile-size) - 12px);
-    /* background-color: red; */
     border-radius: 50%;
     left: 0;
     top: 0;
-    border: 6px solid rgb(237, 51, 37);
+    border: 6px solid var(--target);
+}
+
+.checked:after{
+    content: '';
+    display:block;
+    position: absolute;
+    width: var(--tile-size);
+    height:var(--tile-size);
+    background-color:  var(--check);
+    border-radius: 20%;
+    left: 0;
+    top: 0;
 }

@@ -5,6 +5,8 @@ import { Files, Ranks } from './Coordinates/Coordinates'
 import Pieces from '../Pieces/Pieces'
 import { Context } from '../../Context/Context'
 import Popup from '../Popup/Popup'
+import rules from '../../rules/rules'
+import { getKingPosition } from '../../rules/getMoves'
 
 const Board = () => {
     const ranks = Array(8).fill().map((x,i)=>8-i)
@@ -13,21 +15,16 @@ const Board = () => {
     const {appState} = useContext(Context)
     const position = appState.position[appState.position.length-1]
 
-
-    // function getClassName(i,j){
-    //     let c='tile'
-    //     c+= (i+j)%2 ===0?'Dark':'Light'
-
-    //     if(appState.candidateMoves?.find(m=>m[0]===i && m[1]===j)){
-    //       if(position[i][j]){
-    //         c+=' attacking'
-    //       } else {
-    //         c+=' highlight'
-    //       }
-    //     }
-
-    //     return c
-    // }
+    const isChecked = (()=>{
+    const isInCheck=  rules.isPlayerInCheck({
+        positionAfterMove:position,
+        player:appState.turn
+      })
+      if(isInCheck){
+        return getKingPosition(position,appState.turn)
+      }
+      return null
+    })() //to run only once
     const getClassName = (i,j) => {
       let c='tile'
         c+= (i+j)%2 ===0?'Dark':'Light'
@@ -38,9 +35,9 @@ const Board = () => {
               c+= ' highlight'
       }
 
-      // if (checkTile && checkTile[0] === i && checkTile[1] === j) {
-      //     c+= ' checked'
-      // }
+      if(isChecked && isChecked[0]===i && isChecked[1]===j){
+        c+= ' checked'
+      }
 
       return c
   }

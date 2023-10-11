@@ -4,6 +4,8 @@ const actionTypes ={
     newMove:"newMove",
     promotionOpen:"promotionOpen",
     promotionClose:"promotionClose",
-    canCastle:"canCastle"
+    canCastle:"canCastle",
+    stalemate:"stalemate",
+    newGame:"newGame"
 }
 export default actionTypes

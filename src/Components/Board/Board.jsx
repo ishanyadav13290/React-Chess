@@ -7,6 +7,8 @@ import { Context } from '../../Context/Context'
 import Popup from '../Popup/Popup'
 import rules from '../../rules/rules'
 import { getKingPosition } from '../../rules/getMoves'
+import { PromotionBox } from '../Popup/PromotionBox/PromotionBox'
+import GameEnds from '../Popup/GameEnds/GameEnds'
 
 const Board = () => {
     const ranks = Array(8).fill().map((x,i)=>8-i)
@@ -53,7 +55,10 @@ const Board = () => {
         </div>
         <Pieces />
 
-        <Popup />
+        <Popup >
+          <PromotionBox />
+          <GameEnds />
+        </Popup>
     <Files files={files} />
     </div>
   )

@@ -6,7 +6,7 @@ import { clearCandidates, makeNewMove } from '../../Reducer/actions/move'
 import rules from '../../rules/rules'
 import { openPromotion } from '../../Reducer/actions/popup'
 import { getCastleDirections } from '../../rules/getMoves'
-import { updateCastling } from '../../Reducer/actions/game'
+import { detectStalemate, updateCastling } from '../../Reducer/actions/game'
 
 const Pieces = () => {
     // array of 8*8 for grid system
@@ -49,6 +49,9 @@ const Pieces = () => {
         const {x,y} = calculateCoords(e)
         const [piece,rank,file] = e.dataTransfer.getData('text').split(',') //splitting into array to capture values
         if(appState.candidateMoves?.find(m=>m[0]===x && m[1]===y)){ //checking if its a valid move or not
+            const opponent = piece.startsWith('b')?'w':'b'
+            const castleDirection = appState.castleDirection[`${piece.startsWith('b')?'w':'b'}`]
+            
             if((piece==='wp' && x===7) || (piece==='bp' && x===0)){
                 openPromotionBox({rank,file,x,y})
                 return
@@ -62,6 +65,9 @@ const Pieces = () => {
                 x,y
             }) //to store the newly changed positions in the array
             dispatch(makeNewMove({newPosition})) //setting position array to newly changes array to display changes, also changing turns
+            console.log(newPosition,opponent, castleDirection)
+            if(rules.isStalemate(newPosition,opponent, castleDirection))
+            dispatch(detectStalemate())
         }
         dispatch(clearCandidates())
     }

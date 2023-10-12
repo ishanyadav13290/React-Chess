@@ -1,3 +1,4 @@
+import { areSameColorTiles, findPieceCoords } from "../Helper/helper"
 import { getBishopMoves, getCastlingMoves, getKingMoves, getKingPosition, getKnightMoves, getPawnCapture, getPawnMoves, getPieces, getQueenMoves, getRookMoves } from "./getMoves"
 import { movePawn, movePiece } from "./move"
 
@@ -86,6 +87,61 @@ const rules ={
         ],[])
         return (!isInCheck && moves.length ===0)
     },
+    insufficientMaterial:function(position){
+        const pieces = 
+        position.reduce((acc,rank) => 
+            acc = [
+                ...acc,
+                ...rank.filter(spot => spot)
+            ],[]) //get current pieces
+        if(pieces.length===2){ //only two king left
+            return true
+        }
+        if(pieces.length === 3 && (pieces.some(p=>p.endsWith('b') || p.endsWith('n')))){ //bishop or knight along with king
+            return true
+        }
+        if(pieces.length === 4 && 
+            pieces.every(p=>p.endsWith('b') || p.endsWith('k')) &&
+            //set will remove duplicates ex two bishops and size will be 3
+            new Set(pieces).size===4 && areSameColorTiles(
+                findPieceCoords(position,'wb')[0],
+                findPieceCoords(position,'bb')[0]
+            )){//king & bishop vs same
+                return true
+        }
+        return false
+    }
+    // insufficientMaterial : function(position) {
+
+    //     const pieces = 
+    //         position.reduce((acc,rank) => 
+    //             acc = [
+    //                 ...acc,
+    //                 ...rank.filter(spot => spot)
+    //             ],[])
+
+    //     // King vs. king
+    //     if (pieces.length === 2)
+    //         return true
+
+    //     // King and bishop vs. king
+    //     // King and knight vs. king
+    //     if (pieces.length === 3 && pieces.some(p => p.endsWith('b') || p.endsWith('n')))
+    //         return true
+
+    //     // King and bishop vs. king and bishop of the same color as the opponent's bishop
+    //     if (pieces.length === 4 && 
+    //         pieces.every(p => p.endsWith('b') || p.endsWith('k')) &&
+    //         new Set(pieces).size === 4 &&
+    //         areSameColorTiles(
+    //             findPieceCoords(position,'wb')[0],
+    //             findPieceCoords(position,'bb')[0]
+    //         )
+    //     )
+    //         return true
+
+    //     return false
+    // }
     
 
 }

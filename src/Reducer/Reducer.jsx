@@ -57,11 +57,18 @@ export const reducer = (state,action)=>{
                 status:Status.stalemate,
             }
         }
+        case actionTypes.insufficientMaterial:{
+            return {
+                ...state,
+                status:Status.insufficient
+            }
+        }
         case actionTypes.newGame:{
             return {
                 ...action.payload
             }
         }
+        
         default: return state
     }
 }

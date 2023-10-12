@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from 'react'
+import React, { useContext, useRef } from 'react'
 import "./Pieces.css"
 import Piece from './Piece'
 import { Context } from '../../Context/Context'
@@ -6,7 +6,7 @@ import { clearCandidates, makeNewMove } from '../../Reducer/actions/move'
 import rules from '../../rules/rules'
 import { openPromotion } from '../../Reducer/actions/popup'
 import { getCastleDirections } from '../../rules/getMoves'
-import { detectStalemate, updateCastling } from '../../Reducer/actions/game'
+import { detectStalemate, updateCastling,detectInsufficientMaterial } from '../../Reducer/actions/game'
 
 const Pieces = () => {
     // array of 8*8 for grid system
@@ -65,9 +65,11 @@ const Pieces = () => {
                 x,y
             }) //to store the newly changed positions in the array
             dispatch(makeNewMove({newPosition})) //setting position array to newly changes array to display changes, also changing turns
-            console.log(newPosition,opponent, castleDirection)
-            if(rules.isStalemate(newPosition,opponent, castleDirection))
-            dispatch(detectStalemate())
+            if (rules.insufficientMaterial(newPosition))
+                dispatch(detectInsufficientMaterial())
+            else if (rules.isStalemate(newPosition,opponent,castleDirection)){
+                dispatch(detectStalemate())
+            }
         }
         dispatch(clearCandidates())
     }

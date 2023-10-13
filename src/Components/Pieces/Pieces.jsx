@@ -6,7 +6,7 @@ import { clearCandidates, makeNewMove } from '../../Reducer/actions/move'
 import rules from '../../rules/rules'
 import { openPromotion } from '../../Reducer/actions/popup'
 import { getCastleDirections } from '../../rules/getMoves'
-import { detectStalemate, updateCastling,detectInsufficientMaterial } from '../../Reducer/actions/game'
+import { detectStalemate, updateCastling,detectInsufficientMaterial, detectCheckmate } from '../../Reducer/actions/game'
 
 const Pieces = () => {
     // array of 8*8 for grid system
@@ -69,6 +69,8 @@ const Pieces = () => {
                 dispatch(detectInsufficientMaterial())
             else if (rules.isStalemate(newPosition,opponent,castleDirection)){
                 dispatch(detectStalemate())
+            } else if (rules.isCheckMate(newPosition,opponent,castleDirection)){
+                dispatch(detectCheckmate(piece[0]))
             }
         }
         dispatch(clearCandidates())
